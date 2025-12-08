@@ -1,9 +1,16 @@
 import React from 'react';
+import Hero from './Hero';
+import HowItWorks from './HowItWorks';
+import WhyJoinClub from './WhyJoinClub';
+
+
 
 const Home = () => {
     return (
-        <div>
-            <h1>this is home</h1>
+        <div className='px-6'>
+            <Hero />
+            <HowItWorks />
+            <WhyJoinClub />
         </div>
     );
 };
