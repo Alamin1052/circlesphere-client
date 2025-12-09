@@ -1,128 +1,82 @@
-import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "./Logo";
+import useAuth from "../Hooks/useAuth";
+import { div } from "framer-motion/client";
 
-export default function Navbar({ user, logout }) {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-
-    const dropdownRef = useRef();
-
-    useEffect(() => {
-        function handleClickOutside(e) {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-                setDropdownOpen(false);
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+const Navbar = () => {
+    const { user, logOut } = useAuth()
+    console.log(user)
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    const Links = <>
+        <li><NavLink to="/"
+            className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
+        >Home</NavLink></li>
+        <li><NavLink to="/services"
+            className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
+        >Clubs</NavLink></li>
+        <li><NavLink to="/profile"
+            className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
+        >Events</NavLink></li>
+    </>
 
     return (
-        <nav className="w-full border-b bg-white/90 backdrop-blur shadow-sm sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-
-                {/* Logo */}
-                <Link to="/">
-                    <Logo />
-                </Link>
-
-                {/* Desktop Links */}
-                <div className="hidden md:flex items-center gap-6">
-                    <NavLink to="/" className="hover:text-[#4F80FF] transition">Home</NavLink>
-                    <NavLink to="/clubs" className="hover:text-[#4F80FF] transition">Clubs</NavLink>
-                    <NavLink to="/events" className="hover:text-[#4F80FF] transition">Events</NavLink>
-                </div>
-
-                {/* Auth Section */}
-                <div className="hidden md:flex items-center gap-4">
-                    {!user ? (
-                        <>
-                            <Link to="/login" className="text-gray-600 hover:text[#4F80FF]">Login</Link>
-                            <Link
-                                to="/register"
-                                className="px-4 py-2 bg-[#4F80FF] text-white rounded-lg hover:bg-blue-700"
-                            >
-                                Register
-                            </Link>
-                        </>
-                    ) : (
-                        <div className="relative" ref={dropdownRef}>
-                            <img
-                                src={user.avatar || "https://i.pravatar.cc/100"}
-                                onClick={() => setDropdownOpen((p) => !p)}
-                                className="w-10 h-10 rounded-full cursor-pointer border"
-                                alt="avatar"
-                            />
-                            {dropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border p-2 text-sm">
-                                    <Link
-                                        to="/profile"
-                                        className="block px-3 py-2 rounded hover:bg-gray-100"
-                                    >
-                                        Profile
-                                    </Link>
-                                    <Link
-                                        to="/dashboard"
-                                        className="block px-3 py-2 rounded hover:bg-gray-100"
-                                    >
-                                        Dashboard
-                                    </Link>
-                                    <button
-                                        onClick={logout}
-                                        className="w-full text-left px-3 py-2 rounded hover:bg-gray-100"
-                                    >
-                                        Logout
-                                    </button>
-                                </div>
-                            )}
+        <div className="sticky top-0 z-10 bg-gray-500/60 backdrop-blur-sm">
+            <div className="navbar max-w-7xl mx-auto">
+                <div className="navbar-start  text-white">
+                    <div className="dropdown">
+                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
                         </div>
-                    )}
+                        <ul
+                            tabIndex="-1"
+                            className="menu menu-sm dropdown-content bg-black rounded-box z-1 mt-3 w-52 p-2 shadow ">
+                            {Links}
+                        </ul>
+                    </div>
+                    <Logo />
+                </div>
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal px-1">
+                        {Links}
+                    </ul>
+                </div>
+                <div className="navbar-end">
+                    {user ? <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img
+                                    src={user.photoURL
+                                    }
+                                    alt="Tailwind CSS Navbar component"
+                                />
+                            </div>
+                        </div>
+                        <ul
+                            tabIndex="-1"
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                            <li>
+                                <a className="justify-between">
+                                    Profile
+                                    <span className="badge">New</span>
+                                </a>
+                            </li>
+                            <li><a>Settings</a></li>
+                            <li onClick={handleLogOut}><a>Logout</a></li>
+                        </ul>
+                    </div> : <div className="navbar-end">
+                        <Link to="/login" className="px-8 py-3 rounded-lg bg-[#4F80FF] text-white font-bold">Login</Link>
+                    </div>}
                 </div>
 
-                {/* Mobile Button */}
-                <button
-                    className="md:hidden text-2xl"
-                    onClick={() => setMenuOpen((p) => !p)}
-                >
-                    ☰
-                </button>
             </div>
-
-            {/* Mobile Menu */}
-            {
-                menuOpen && (
-                    <div className="md:hidden bg-white border-t px-4 py-4 space-y-3">
-
-                        <NavLink to="/" className="block">Home</NavLink>
-                        <NavLink to="/clubs" className="block">Clubs</NavLink>
-                        <NavLink to="/events" className="block">Events</NavLink>
-
-                        {!user ? (
-                            <>
-                                <Link to="/login" className="block text-teal-600">Login</Link>
-                                <Link
-                                    to="/register"
-                                    className="block px-4 py-2 bg-teal-600 text-white rounded-lg text-center"
-                                >
-                                    Register
-                                </Link>
-                            </>
-                        ) : (
-                            <>
-                                <Link to="/profile" className="block">Profile</Link>
-                                <Link to="/dashboard" className="block">Dashboard</Link>
-                                <button
-                                    onClick={logout}
-                                    className="block w-full text-left text-red-600"
-                                >
-                                    Logout
-                                </button>
-                            </>
-                        )}
-                    </div>
-                )
-            }
-        </nav >
+        </div >
     );
-}
+};
+
+export default Navbar;
