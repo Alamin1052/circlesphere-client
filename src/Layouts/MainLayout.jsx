@@ -7,8 +7,10 @@ const MainLayout = () => {
     return (
         <div>
             <Navbar />
-            <Outlet />
-            <Footer/>
+            <section className='bg-[linear-gradient(to_bottom_right,#e2edff,#f9fbff)]'>
+                <Outlet />
+            </section>
+            <Footer />
         </div>
     );
 };

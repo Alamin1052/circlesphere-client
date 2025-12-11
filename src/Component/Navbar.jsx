@@ -1,7 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import Logo from "./Logo";
 import useAuth from "../Hooks/useAuth";
-import { div } from "framer-motion/client";
 
 const Navbar = () => {
     const { user, logOut } = useAuth()
@@ -23,6 +22,10 @@ const Navbar = () => {
         <li><NavLink to="/profile"
             className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
         >Events</NavLink></li>
+        {
+            user && <li><NavLink to="/dashboard" className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
+            >Dashboard</NavLink></li >
+        }
     </>
 
     return (
@@ -61,12 +64,11 @@ const Navbar = () => {
                             tabIndex="-1"
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                             <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
+                                <a className="">
+                                    {user.displayName}
                                 </a>
                             </li>
-                            <li><a>Settings</a></li>
+                            <li><Link to="dashboard">Dashboard</Link></li>
                             <li onClick={handleLogOut}><a>Logout</a></li>
                         </ul>
                     </div> : <div className="navbar-end">

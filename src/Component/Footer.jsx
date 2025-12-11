@@ -1,10 +1,11 @@
 import React from "react";
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 import Logo from "./Logo";
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-900 rounded-2xl text-gray-200 pt-15  m-6">
+        <footer className="bg-gray-900 rounded-t-2xl text-gray-200 pt-15 ">
             <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
 
                 {/* About / Contact Info */}
@@ -25,7 +26,7 @@ const Footer = () => {
                         <FaLinkedin />
                     </a>
                     <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
-                        <FaTwitter />
+                        <FaSquareXTwitter />
                     </a>
                     <a href="mailto:contact@circlesphere.com" className="hover:text-red-500 transition">
                         <FaEnvelope />
