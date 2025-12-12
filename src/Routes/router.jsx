@@ -14,6 +14,9 @@ import ClubMembers from "../Pages/Dashboard/Maneger/ClubMembers";
 import ManageEvents from "../Pages/Dashboard/Maneger/ManageEvents";
 import EventRegistrations from "../Pages/Dashboard/Maneger/EventRegistrations";
 import AdminDashboardHome from "../Pages/Dashboard/DashboardHome/AdminDashboardHome";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
+import ManageClubs from "../Pages/Dashboard/Admin/ManageClubs";
+import PaymentsTransactions from "../Pages/Dashboard/Admin/PaymentsTransactions";
 
 export const router = createBrowserRouter([
     {
@@ -76,6 +79,18 @@ export const router = createBrowserRouter([
             {
                 path: 'admin-home',
                 Component: AdminDashboardHome,
+            },
+            {
+                path: 'manage-users',
+                Component: ManageUsers,
+            },
+            {
+                path: 'manage-clubs',
+                Component: ManageClubs,
+            },
+            {
+                path: 'payment-transaction',
+                Component: PaymentsTransactions,
             }
         ]
     }

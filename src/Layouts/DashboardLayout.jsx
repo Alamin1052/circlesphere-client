@@ -129,15 +129,27 @@ const DashboardLayout = () => {
 
                         {/* Admin Dashboard */}
                         <li>
-                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management" to="/dashboard/admin-home">
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Overview" to="/dashboard/admin-home">
                                 <FaUsers></FaUsers>
                                 <span className="is-drawer-close:hidden">Overview</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management" to="/dashboard/users-management">
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Users" to="/dashboard/manage-users">
                                 <FaUsers></FaUsers>
-                                <span className="is-drawer-close:hidden">Users Management</span>
+                                <span className="is-drawer-close:hidden"> Manage Users</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Clubs" to="/dashboard/manage-clubs">
+                                <FaUsers></FaUsers>
+                                <span className="is-drawer-close:hidden"> Manage Clubs</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments Transactions" to="/dashboard/payment-transaction">
+                                <FaUsers></FaUsers>
+                                <span className="is-drawer-close:hidden"> Payments Transactions</span>
                             </NavLink>
                         </li>
 
