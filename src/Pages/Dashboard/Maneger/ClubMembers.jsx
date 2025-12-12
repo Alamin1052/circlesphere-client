@@ -34,10 +34,9 @@ const ClubMembers = () => {
     };
 
     return (
-        <div className="space-y-6 p-12">
+        <div className="space-y-6 p-6">
             <div>
-                <h1 className="text-2xl font-bold text-gray-800">My Events</h1>
-                <p className="text-gray-600">Events you have registered for.</p>
+                <h1 className="text-2xl font-bold text-gray-800">Club Members</h1>
             </div>
 
             <div className="overflow-x-auto rounded-xl shadow">

@@ -2,7 +2,7 @@ import React from 'react';
 
 const ManagerDashboardHome = () => {
     return (
-        <div className="p-6 min-h-screen bg-gradient-to-br from-[#eef2ff] to-[#fafcff]">
+        <div className="p-6">
 
             {/* Title */}
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Manager Overview</h1>

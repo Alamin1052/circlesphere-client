@@ -116,6 +116,18 @@ const DashboardLayout = () => {
                                 <span className="is-drawer-close:hidden">Club Members</span>
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Events" to="/dashboard/manage-events">
+                                <GiOrganigram />
+                                <span className="is-drawer-close:hidden">Manege Events</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Event Registration" to="/dashboard/event-registration">
+                                <GiOrganigram />
+                                <span className="is-drawer-close:hidden">Event Registration</span>
+                            </NavLink>
+                        </li>
 
 
                         <li>

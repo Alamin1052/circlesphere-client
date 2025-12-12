@@ -48,7 +48,7 @@ const PaymentHistory = () => {
     };
 
     return (
-        <div className="space-y-6 p-12">
+        <div className="space-y-6 p-6">
             <div>
                 <h1 className="text-2xl font-bold text-gray-800">Payment History</h1>
                 <p className="text-gray-600">All your past payments for memberships & events.</p>

@@ -26,7 +26,7 @@ const MemberDashboardHome = () => {
     ];
 
     return (
-        <div className="space-y-6 p-10">
+        <div className="space-y-6 p-6">
             {/* Welcome Section */}
             <div>
                 <h1 className="text-2xl font-bold text-gray-800">

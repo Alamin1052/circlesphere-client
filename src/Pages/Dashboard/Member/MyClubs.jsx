@@ -59,7 +59,7 @@ const MyClubs = () => {
     };
 
     return (
-        <div className="space-y-6 p-12">
+        <div className="space-y-6 p-6">
             <div>
                 <h1 className="text-2xl font-bold text-gray-800">My Clubs</h1>
                 <p className="text-gray-600">Clubs where you have an active membership.</p>

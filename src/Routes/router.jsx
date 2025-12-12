@@ -11,6 +11,8 @@ import PaymentHistory from "../Pages/Dashboard/Member/PaymentHistory";
 import ManagerDashboardHome from "../Pages/Dashboard/DashboardHome/ManagerDashboardHome";
 import ManagerClubs from "../Pages/Dashboard/Maneger/ManagerClubs";
 import ClubMembers from "../Pages/Dashboard/Maneger/ClubMembers";
+import ManageEvents from "../Pages/Dashboard/Maneger/ManageEvents";
+import EventRegistrations from "../Pages/Dashboard/Maneger/EventRegistrations";
 
 export const router = createBrowserRouter([
     {
@@ -61,6 +63,14 @@ export const router = createBrowserRouter([
             {
                 path: 'club-members',
                 Component: ClubMembers
+            },
+            {
+                path: 'manage-events',
+                Component: ManageEvents
+            },
+            {
+                path: 'event-registration',
+                Component: EventRegistrations
             }
         ]
     }

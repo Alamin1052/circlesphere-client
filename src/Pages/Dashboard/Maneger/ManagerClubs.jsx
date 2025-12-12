@@ -5,7 +5,7 @@ const ManagerClubs = () => {
     const [openEdit, setOpenEdit] = useState(false);
 
     return (
-        <div className="p-12 min-h-screen bg-gradient-to-br from-[#eef1ff] to-[#fafcff]">
+        <div className="p-6">
 
             {/* Page Header */}
             <div className="flex justify-between items-center mb-6">
