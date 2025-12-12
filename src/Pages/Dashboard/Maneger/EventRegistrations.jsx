@@ -28,7 +28,7 @@ const EventRegistrations = () => {
                             <th className="p-4 text-left text-sm font-medium text-gray-800">
                                 Status
                             </th>
-                            <th className="p-4 text-left text-sm font-medium text-gray-800">
+                            <th className="p-4 text-left text-sm font-medium text-gray-8 00">
                                 Registered At
                             </th>
                         </tr>

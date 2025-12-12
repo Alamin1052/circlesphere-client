@@ -13,6 +13,7 @@ import ManagerClubs from "../Pages/Dashboard/Maneger/ManagerClubs";
 import ClubMembers from "../Pages/Dashboard/Maneger/ClubMembers";
 import ManageEvents from "../Pages/Dashboard/Maneger/ManageEvents";
 import EventRegistrations from "../Pages/Dashboard/Maneger/EventRegistrations";
+import AdminDashboardHome from "../Pages/Dashboard/DashboardHome/AdminDashboardHome";
 
 export const router = createBrowserRouter([
     {
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
             {
                 path: 'event-registration',
                 Component: EventRegistrations
+            },
+            {
+                path: 'admin-home',
+                Component: AdminDashboardHome,
             }
         ]
     }

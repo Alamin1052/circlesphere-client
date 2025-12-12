@@ -5,7 +5,7 @@ import { FaRegCreditCard, FaUsers } from 'react-icons/fa';
 
 import Logo from '../Component/Logo';
 import useAuth from '../Hooks/useAuth';
-import { MdEvent } from 'react-icons/md';
+import { MdAppRegistration, MdEvent, MdEventRepeat, MdGroups, MdOutlineManageAccounts } from 'react-icons/md';
 import { GiOrganigram } from 'react-icons/gi';
 
 const DashboardLayout = () => {
@@ -102,34 +102,38 @@ const DashboardLayout = () => {
                                 <span className="is-drawer-close:hidden">Overview</span>
                             </NavLink>
                         </li>
-
-                        {/* our dashboard links */}
                         <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Clubs" to="/dashboard/manager-clubs">
-                                <GiOrganigram />
+                                <MdOutlineManageAccounts />
                                 <span className="is-drawer-close:hidden">My Clubs</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip=" Club Members" to="/dashboard/club-members">
-                                <GiOrganigram />
+                                <MdGroups />
                                 <span className="is-drawer-close:hidden">Club Members</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Events" to="/dashboard/manage-events">
-                                <GiOrganigram />
+                                <MdEventRepeat />
                                 <span className="is-drawer-close:hidden">Manege Events</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Event Registration" to="/dashboard/event-registration">
-                                <GiOrganigram />
+                                <MdAppRegistration />
                                 <span className="is-drawer-close:hidden">Event Registration</span>
                             </NavLink>
                         </li>
 
-
+                        {/* Admin Dashboard */}
+                        <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management" to="/dashboard/admin-home">
+                                <FaUsers></FaUsers>
+                                <span className="is-drawer-close:hidden">Overview</span>
+                            </NavLink>
+                        </li>
                         <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management" to="/dashboard/users-management">
                                 <FaUsers></FaUsers>
