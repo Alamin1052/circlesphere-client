@@ -1,25 +1,80 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import SocialLogin from "./SocialLogin";
+import useAuth from "../../Hooks/useAuth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const { registerUser, updateUserProfile } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
-        // TODO: Firebase Auth createUserWithEmailAndPassword
-        // TODO: Update profile (name + photoURL)
-        // TODO: Save user to Firestore
-        // TODO: Toast success + redirect
-        reset();
-    };
+    const handleRegistration = (data) => {
+
+        const profileImg = data.photoURL[0];
+
+        registerUser(data.email, data.password)
+            .then(() => {
+
+                // 1. store the image in form data
+                const formData = new FormData();
+                formData.append('image', profileImg);
+
+                // 2. send the photo to store and get the ul
+                const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_API}`
+
+                axios.post(image_API_URL, formData)
+                    .then(res => {
+                        const photoURL = res.data.data.url;
+
+                        // create user in the database
+                        const userInfo = {
+                            displayName: data.name,
+                            email: data.email,
+                            photoURL: photoURL
+
+                        }
+                        axiosSecure.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user created in the database');
+                                }
+                            })
+
+
+                        // update user profile to firebase
+                        const userProfile = {
+                            displayName: data.name,
+                            photoURL: photoURL
+                        }
+
+                        updateUserProfile(userProfile)
+                            .then(() => {
+                                // console.log('user profile updated done.')
+                                toast.success("Registration successful 🎉");
+                                navigate(location.state || '/');
+                            })
+                            .catch(error => console.log(error))
+                    })
+
+
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
 
     return (
         <div className="flex items-center justify-center p-6">
@@ -35,7 +90,7 @@ const Register = () => {
                     Create an Account
                 </h2>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={handleSubmit(handleRegistration)} className="space-y-4">
 
                     {/* Name */}
                     <div>
@@ -53,6 +108,16 @@ const Register = () => {
                         )}
                     </div>
 
+                    {/* Photo URL */}
+                    <div>
+                        <label className="block font-medium mb-1 text-gray-700">Photo URL</label>
+                        <input
+                            type="file"
+                            className="file-input w-full bg-white/60 px-3 py-2 rounded border"
+                            {...register("photoURL")}
+                        />
+                    </div>
+
                     {/* Email */}
                     <div>
                         <label className="block font-medium mb-1 text-gray-700">Email</label>
@@ -67,16 +132,6 @@ const Register = () => {
                                 {errors.email.message}
                             </p>
                         )}
-                    </div>
-
-                    {/* Photo URL */}
-                    <div>
-                        <label className="block font-medium mb-1 text-gray-700">Photo URL</label>
-                        <input
-                            type="file"
-                            className="file-input w-full bg-white/60 px-3 py-2 rounded border"
-                            {...register("photoURL")}
-                        />
                     </div>
 
                     {/* Password */}
@@ -122,6 +177,10 @@ const Register = () => {
                     >
                         Register
                     </button>
+                    <p>Already have an account <Link
+                        state={location.state}
+                        className='text-blue-400 underline'
+                        to="/login">Login</Link></p>
                 </form>
 
                 {/* Google Sign-in */}

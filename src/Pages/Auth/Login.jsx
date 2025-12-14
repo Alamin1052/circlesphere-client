@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SocialLogin from './SocialLogin';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -95,6 +96,10 @@ const Login = () => {
                     >
                         Login
                     </button>
+                    <p>New to CircleSpere <Link
+                        state={location.state}
+                        className='text-blue-400 underline'
+                        to="/register">Register</Link></p>
                 </form>
 
                 {/* Google Sign-in */}
