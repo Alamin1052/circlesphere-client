@@ -17,6 +17,9 @@ import AdminDashboardHome from "../Pages/Dashboard/DashboardHome/AdminDashboardH
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import ManageClubs from "../Pages/Dashboard/Admin/ManageClubs";
 import PaymentsTransactions from "../Pages/Dashboard/Admin/PaymentsTransactions";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import ManagerRoute from "./ManagerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -38,7 +41,7 @@ export const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        Component: DashboardLayout,
+        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
             {
                 index: true,
@@ -58,39 +61,39 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'manager-home',
-                Component: ManagerDashboardHome,
+                element: <ManagerRoute><ManagerDashboardHome /></ManagerRoute>,
             },
             {
                 path: 'manager-clubs',
-                Component: ManagerClubs
+                element: <ManagerRoute><ManageClubs /></ManagerRoute>
             },
             {
                 path: 'club-members',
-                Component: ClubMembers
+                element: <ManagerRoute><ClubMembers /></ManagerRoute>
             },
             {
                 path: 'manage-events',
-                Component: ManageEvents
+                element: <ManagerRoute><ManageEvents /></ManagerRoute>
             },
             {
                 path: 'event-registration',
-                Component: EventRegistrations
+                element: <ManagerRoute><EventRegistrations /></ManagerRoute>
             },
             {
                 path: 'admin-home',
-                Component: AdminDashboardHome,
+                element: <AdminRoute><AdminDashboardHome /></AdminRoute>,
             },
             {
                 path: 'manage-users',
-                Component: ManageUsers,
+                element: <AdminRoute><ManageUsers /></AdminRoute>,
             },
             {
                 path: 'manage-clubs',
-                Component: ManageClubs,
+                element: <AdminRoute><ManageClubs /></AdminRoute>,
             },
             {
                 path: 'payment-transaction',
-                Component: PaymentsTransactions,
+                element: <AdminRoute><PaymentsTransactions /></AdminRoute>,
             }
         ]
     }
