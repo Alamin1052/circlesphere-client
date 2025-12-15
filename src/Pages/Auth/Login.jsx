@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SocialLogin from './SocialLogin';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const { signInUser } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
-        // TODO: Firebase Auth createUserWithEmailAndPassword
-        // TODO: Update profile (name + photoURL)
-        // TODO: Save user to Firestore
-        // TODO: Toast success + redirect
-        reset();
-    };
+    const handleLogin = (data) => {
+        console.log('form data', data);
+        signInUser(data.email, data.password)
+            .then(result => {
+                console.log(result.user)
+                toast.success('Login Successful')
+                navigate(location?.state || '/')
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
+    }
     return (
         <div className="flex items-center justify-center p-6">
 
@@ -35,7 +43,7 @@ const Login = () => {
                     Welcome back
                 </h2>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
 
                     {/* Email */}
                     <div>

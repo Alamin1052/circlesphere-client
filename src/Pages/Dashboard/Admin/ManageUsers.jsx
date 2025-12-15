@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const ManageUsers = () => {
 
@@ -14,6 +15,60 @@ const ManageUsers = () => {
             return res.data;
         }
     })
+
+    const handleMakeAdmin = user => {
+        const roleInfo = { role: 'admin' }
+        //TODO: must ask for confirmation before proceed
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.modifiedCount) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `${user.displayName} marked as an Admin`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            })
+    }
+
+    const handleMakeManager = user => {
+        const roleInfo = { role: 'manager' }
+        //TODO: must ask for confirmation before proceed
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `${user.displayName} marked as a manager`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            })
+    }
+    const handleMakeMember = user => {
+        const roleInfo = { role: 'member' }
+        //TODO: must ask for confirmation before proceed
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `${user.displayName} marked as a member`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            })
+    }
 
     return (
         <div className="p-6 md:p-10">
@@ -75,7 +130,10 @@ const ManageUsers = () => {
                             ) : (
                                 users.map((user) => (
                                     <tr key={user._id}>
-                                        <td className="p-4 text-gray-700">{user.displayName}</td>
+                                        {/* <td className="p-4 text-gray-700"></td> */}
+                                        <td className="p-4 text-gray-700 flex items-center gap-2">
+                                            <img className="w-10 h-10 object-cover rounded-full" src={user.photoURL} alt="" />
+                                            {user.displayName}</td>
                                         <td className="p-4 text-gray-600">{user.email}</td>
                                         <td className="p-4">
                                             <span
@@ -99,9 +157,13 @@ const ManageUsers = () => {
                                                     Change Role
                                                 </summary>
                                                 <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40">
-                                                    <li><a>Make Admin</a></li>
-                                                    <li><a>Make Manager</a></li>
-                                                    <li><a>Make Member</a></li>
+                                                    <li onClick={() => handleMakeAdmin(user)}><a>Make Admin</a></li>
+                                                    <li
+                                                        onClick={() => handleMakeManager(user)}
+                                                    ><a>Make Manager</a></li>
+                                                    <li
+                                                        onClick={() => handleMakeMember(user)}
+                                                    ><a>Make Member</a></li>
                                                 </ul>
                                             </details>
 
