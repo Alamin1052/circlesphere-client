@@ -61,7 +61,6 @@ const Register = () => {
 
                         updateUserProfile(userProfile)
                             .then(() => {
-                                // console.log('user profile updated done.')
                                 toast.success("Registration successful 🎉");
                                 navigate(location.state || '/');
                             })

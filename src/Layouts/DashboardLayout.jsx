@@ -45,7 +45,6 @@ const DashboardLayout = () => {
                                         </a>
                                     </li>
                                     <li><a>{user.displayName}</a></li>
-                                    <li> <a>Logout</a></li>
                                 </ul>
                             </div>
                         }

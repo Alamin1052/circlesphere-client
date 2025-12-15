@@ -1,13 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const ManageUsers = () => {
+
+    const axiosSecure = useAxiosSecure();
+    const [searchText, setSearchText] = useState('')
+
+    const { refetch, isLoading, data: users = [] } = useQuery({
+        queryKey: ['users', searchText],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/users?searchText=${searchText}`);
+            return res.data;
+        }
+    })
+
     return (
         <div className="p-6 md:p-10">
 
             {/* Header */}
             <h1 className="text-2xl font-bold text-gray-800 mb-6">
-                Manage Users
+                Manage Users: {users.length}
             </h1>
+            <p>search user: {searchText}</p>
+            <label className="input mb-6">
+                <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                        strokeLinejoin="round"
+                        strokeLinecap="round"
+                        strokeWidth="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                    >
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+                <input
+                    onChange={(e) => setSearchText(e.target.value)}
+                    type="search"
+                    className="grow"
+                    placeholder="Search users" />
+
+            </label>
 
             {/* Users Table */}
             <div className="bg-white shadow-sm border border-gray-100 rounded-lg overflow-hidden">
@@ -25,92 +60,62 @@ const ManageUsers = () => {
                         </thead>
 
                         <tbody>
+                            {isLoading ? (
+                                <tr>
+                                    <td colSpan={4} className="p-4 text-center">
+                                        Loading...
+                                    </td>
+                                </tr>
+                            ) : users.length === 0 ? (
+                                <tr>
+                                    <td colSpan={4} className="p-4 text-center">
+                                        No users found
+                                    </td>
+                                </tr>
+                            ) : (
+                                users.map((user) => (
+                                    <tr key={user._id}>
+                                        <td className="p-4 text-gray-700">{user.displayName}</td>
+                                        <td className="p-4 text-gray-600">{user.email}</td>
+                                        <td className="p-4">
+                                            <span
+                                                className={`px-3 py-1 text-xs rounded-full ${user.role === "admin"
+                                                    ? "bg-red-100 text-red-700"
+                                                    : user.role === "manager"
+                                                        ? "bg-yellow-100 text-yellow-700"
+                                                        : "bg-blue-100 text-blue-700"
+                                                    }`}
+                                            >
+                                                {user.role}
+                                            </span>
+                                        </td>
+                                        <td className="p-4 text-gray-600">
+                                            {new Date(user.createdAt).toLocaleDateString()}
+                                        </td>
+                                        <td className="p-4">
 
-                            {/* Row 1 */}
-                            <tr className="border-t">
-                                <td className="p-4 text-gray-700">Rakib Hasan</td>
-                                <td className="p-4 text-gray-600">rakib@example.com</td>
-                                <td className="p-4">
-                                    <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
-                                        member
-                                    </span>
-                                </td>
-                                <td className="p-4 text-gray-600">2024-02-19</td>
+                                            <details className="dropdown">
+                                                <summary className="m-1 btn btn-sm bg-gray-100">
+                                                    Change Role
+                                                </summary>
+                                                <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40">
+                                                    <li><a>Make Admin</a></li>
+                                                    <li><a>Make Manager</a></li>
+                                                    <li><a>Make Member</a></li>
+                                                </ul>
+                                            </details>
 
-                                <td className="p-4">
-
-                                    {/* Role Change Dropdown */}
-                                    <details className="dropdown">
-                                        <summary className="m-1 btn btn-sm bg-gray-100">
-                                            Change Role
-                                        </summary>
-                                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40">
-                                            <li><a>Make Admin</a></li>
-                                            <li><a>Make Manager</a></li>
-                                            <li><a>Make Member</a></li>
-                                        </ul>
-                                    </details>
-
-                                </td>
-                            </tr>
-
-                            {/* Row 2 */}
-                            <tr className="border-t">
-                                <td className="p-4 text-gray-700">Mahin Islam</td>
-                                <td className="p-4 text-gray-600">mahin@example.com</td>
-                                <td className="p-4">
-                                    <span className="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700">
-                                        admin
-                                    </span>
-                                </td>
-                                <td className="p-4 text-gray-600">2024-01-11</td>
-
-                                <td className="p-4">
-                                    <details className="dropdown">
-                                        <summary className="m-1 btn btn-sm bg-gray-100">
-                                            Change Role
-                                        </summary>
-                                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40">
-                                            <li><a>Make Admin</a></li>
-                                            <li><a>Make Manager</a></li>
-                                            <li><a>Make Member</a></li>
-                                        </ul>
-                                    </details>
-                                </td>
-                            </tr>
-
-                            {/* Row 3 */}
-                            <tr className="border-t">
-                                <td className="p-4 text-gray-700">Jannat Ara</td>
-                                <td className="p-4 text-gray-600">jannat@example.com</td>
-                                <td className="p-4">
-                                    <span className="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
-                                        manager
-                                    </span>
-                                </td>
-                                <td className="p-4 text-gray-600">2023-12-02</td>
-
-                                <td className="p-4">
-                                    <details className="dropdown">
-                                        <summary className="m-1 btn btn-sm bg-gray-100">
-                                            Change Role
-                                        </summary>
-                                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40">
-                                            <li><a>Make Admin</a></li>
-                                            <li><a>Make Manager</a></li>
-                                            <li><a>Make Member</a></li>
-                                        </ul>
-                                    </details>
-                                </td>
-                            </tr>
-
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
 
             </div>
 
-        </div>
+        </div >
     );
 };
 
