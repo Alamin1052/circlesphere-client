@@ -20,6 +20,7 @@ import PaymentsTransactions from "../Pages/Dashboard/Admin/PaymentsTransactions"
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
+import Clubs from "../Pages/Clubs/Clubs";
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 Component: Register
+            },
+            {
+                path: 'clubs',
+                Component: Clubs
             }
         ]
     },
