@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import Loading from "../../../Component/Loading";
 
 const ManageUsers = () => {
 
@@ -18,7 +19,6 @@ const ManageUsers = () => {
 
     const handleMakeAdmin = user => {
         const roleInfo = { role: 'admin' }
-        //TODO: must ask for confirmation before proceed
         axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
             .then(res => {
                 console.log(res.data);
@@ -118,7 +118,7 @@ const ManageUsers = () => {
                             {isLoading ? (
                                 <tr>
                                     <td colSpan={4} className="p-4 text-center">
-                                        Loading...
+                                        <Loading />
                                     </td>
                                 </tr>
                             ) : users.length === 0 ? (

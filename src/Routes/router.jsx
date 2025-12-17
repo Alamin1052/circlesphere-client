@@ -65,7 +65,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'manager-clubs',
-                element: <ManagerRoute><ManageClubs /></ManagerRoute>
+                element: <ManagerRoute><ManagerClubs /></ManagerRoute>
             },
             {
                 path: 'club-members',

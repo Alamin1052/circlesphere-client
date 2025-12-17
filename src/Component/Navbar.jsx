@@ -58,7 +58,7 @@ const Navbar = () => {
                                 <img
                                     src={user.photoURL
                                     }
-                                    alt="Tailwind CSS Navbar component"
+                                    alt="user image"
                                 />
                             </div>
                         </div>
@@ -74,7 +74,8 @@ const Navbar = () => {
                             <li onClick={handleLogOut}><a>Logout</a></li>
                         </ul>
                     </div> : <div className="navbar-end">
-                        <Link to="/login" className="px-8 py-3 rounded-lg bg-[#4F80FF] text-white font-bold">Login</Link>
+                        <Link to="/register" className="btn btn-outline rounded-lg mx-2 font-bold">Register</Link>
+                        <Link to="/login" className="px-6 py-2 rounded-lg bg-[#4F80FF] text-white font-bold">Login</Link>
                     </div>}
                 </div>
 

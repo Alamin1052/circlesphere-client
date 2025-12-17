@@ -20,60 +20,46 @@ const Register = () => {
         formState: { errors },
     } = useForm();
 
-    const handleRegistration = (data) => {
+    const handleRegistration = async (data) => {
+        try {
+            if (!data.photoURL || data.photoURL.length === 0) {
+                toast.error("Please select a profile image");
+                return;
+            }
 
-        const profileImg = data.photoURL[0];
+            const profileImg = data.photoURL[0];
 
-        registerUser(data.email, data.password)
-            .then(() => {
+            await registerUser(data.email, data.password);
 
-                // 1. store the image in form data
-                const formData = new FormData();
-                formData.append('image', profileImg);
+            const formData = new FormData();
+            formData.append("image", profileImg);
 
-                // 2. send the photo to store and get the ul
-                const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_API}`
+            const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_API}`;
+            const imgRes = await axios.post(image_API_URL, formData);
 
-                axios.post(image_API_URL, formData)
-                    .then(res => {
-                        const photoURL = res.data.data.url;
+            const photoURL = imgRes.data.data.url;
+            const userInfo = {
+                displayName: data.name,
+                email: data.email,
+                photoURL,
+            };
 
-                        // create user in the database
-                        const userInfo = {
-                            displayName: data.name,
-                            email: data.email,
-                            photoURL: photoURL
+            await axiosSecure.post("/users", userInfo);
+            const userProfile = {
+                displayName: data.name,
+                photoURL,
+            };
 
-                        }
-                        axiosSecure.post('/users', userInfo)
-                            .then(res => {
-                                if (res.data.insertedId) {
-                                    console.log('user created in the database');
-                                }
-                            })
+            await updateUserProfile(userProfile);
 
+            toast.success("Registration successful 🎉");
+            navigate(location.state || "/");
 
-                        // update user profile to firebase
-                        const userProfile = {
-                            displayName: data.name,
-                            photoURL: photoURL
-                        }
-
-                        updateUserProfile(userProfile)
-                            .then(() => {
-                                toast.success("Registration successful 🎉");
-                                navigate(location.state || '/');
-                            })
-                            .catch(error => console.log(error))
-                    })
-
-
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
+        } catch (error) {
+            console.error(error);
+            toast.error("Registration failed");
+        }
+    };
 
     return (
         <div className="flex items-center justify-center p-6">

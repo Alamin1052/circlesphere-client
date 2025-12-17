@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
-import { FaRegCreditCard, FaUsers } from 'react-icons/fa';
+import { FaRegCreditCard, FaUsers, FaUsersCog } from 'react-icons/fa';
 
 import Logo from '../Component/Logo';
 import useAuth from '../Hooks/useAuth';
-import { MdAppRegistration, MdEvent, MdEventRepeat, MdGroups, MdOutlineManageAccounts } from 'react-icons/md';
+import { MdAppRegistration, MdDashboard, MdEvent, MdEventRepeat, MdGroups, MdOutlineManageAccounts, MdPayment } from 'react-icons/md';
 import { GiOrganigram } from 'react-icons/gi';
 import useRole from '../Hooks/useRole';
+import { IoIosHome } from 'react-icons/io';
+import { GoOrganization } from 'react-icons/go';
 
 const DashboardLayout = () => {
     const { user } = useAuth();
@@ -104,7 +106,7 @@ const DashboardLayout = () => {
                             role === 'manager' && <>
                                 <li>
                                     <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Overview" to="/dashboard/manager-home">
-                                        <GiOrganigram />
+                                        <MdDashboard />
                                         <span className="is-drawer-close:hidden">Overview</span>
                                     </NavLink>
                                 </li>
@@ -140,25 +142,25 @@ const DashboardLayout = () => {
                             role === 'admin' && <>
                                 <li>
                                     <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Overview" to="/dashboard/admin-home">
-                                        <FaUsers></FaUsers>
+                                        <MdDashboard />
                                         <span className="is-drawer-close:hidden">Overview</span>
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Users" to="/dashboard/manage-users">
-                                        <FaUsers></FaUsers>
+                                        <FaUsersCog />
                                         <span className="is-drawer-close:hidden"> Manage Users</span>
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Clubs" to="/dashboard/manage-clubs">
-                                        <FaUsers></FaUsers>
+                                        <GoOrganization />
                                         <span className="is-drawer-close:hidden"> Manage Clubs</span>
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments Transactions" to="/dashboard/payment-transaction">
-                                        <FaUsers></FaUsers>
+                                        <MdPayment />
                                         <span className="is-drawer-close:hidden"> Payments Transactions</span>
                                     </NavLink>
                                 </li>

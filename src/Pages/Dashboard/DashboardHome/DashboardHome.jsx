@@ -3,6 +3,7 @@ import useRole from '../../../Hooks/useRole';
 import Loading from '../../../Component/Loading';
 import AdminDashboardHome from './AdminDashboardHome';
 import ManagerDashboardHome from './ManagerDashboardHome';
+import MemberDashboardHome from './MemberDashboardHome';
 
 const DashboardHome = () => {
     const { role, roleLoading } = useRole();
@@ -16,7 +17,7 @@ const DashboardHome = () => {
         return <ManagerDashboardHome></ManagerDashboardHome>
     }
     else {
-        return
+        return <MemberDashboardHome></MemberDashboardHome>
     }
 }
 
