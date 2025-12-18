@@ -3,11 +3,15 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Loading from '../../Component/Loading';
+import useAuth from '../../Hooks/useAuth';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const ClubDetails = () => {
     const { id } = useParams();
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
 
-    const { data: club, isLoading, isError } = useQuery({
+    const { data: club, isLoading } = useQuery({
         queryKey: ['club', id],
         queryFn: async () => {
             const res = await axios.get(`http://localhost:3000/clubs/${id}`);
@@ -17,7 +21,18 @@ const ClubDetails = () => {
 
     if (isLoading) return <Loading />;
 
-    if (isError || !club) return <p className="text-center text-gray-500 mt-10">Club not found</p>;
+    const handlePayment = async (club) => {
+        const clubInfo = {
+            Fee: club.membershipFee,
+            clubId: club._id,
+            memberEmail: user.email,
+            clubName: club.clubName,
+        }
+        const res = await axiosSecure.post('/payment-checkout-session', clubInfo);
+
+        // console.log(res.data.url);
+        window.location.assign(res.data.url);
+    }
 
     return (
         <div className="p-6 max-w-5xl mx-auto">
@@ -50,7 +65,9 @@ const ClubDetails = () => {
                         {club.description}
                     </p>
                 </span>
-                <button className='btn bg-blue-500 w-fit text-white'>Join Now</button>
+                <button
+                    onClick={() => handlePayment(club)}
+                    className='btn bg-blue-500 w-fit text-white'>Join Now</button>
             </div>
         </div>
     );

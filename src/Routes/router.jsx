@@ -23,6 +23,8 @@ import ManagerRoute from "./ManagerRoute";
 import Clubs from "../Pages/Clubs/Clubs";
 import Events from "../Pages/Events/Events";
 import ClubDetails from "../Pages/Clubs/clubDetails";
+import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
+import PaymentCancel from "../Pages/Payment/PaymentCancel";
 
 export const router = createBrowserRouter([
     {
@@ -51,7 +53,15 @@ export const router = createBrowserRouter([
             {
                 path: 'events',
                 Component: Events
-            }
+            },
+            {
+                path: 'payment-success',
+                Component: PaymentSuccess
+            },
+            {
+                path: 'payment-cancel',
+                Component: PaymentCancel
+            },
         ]
     },
     {
