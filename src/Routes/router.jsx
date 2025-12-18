@@ -21,6 +21,8 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
 import Clubs from "../Pages/Clubs/Clubs";
+import Events from "../Pages/Events/Events";
+import ClubDetails from "../Pages/Clubs/clubDetails";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +43,14 @@ export const router = createBrowserRouter([
             {
                 path: 'clubs',
                 Component: Clubs
+            },
+            {
+                path: 'club-details/:id',
+                Component: ClubDetails
+            },
+            {
+                path: 'events',
+                Component: Events
             }
         ]
     },
