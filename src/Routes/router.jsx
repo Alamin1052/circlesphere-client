@@ -25,11 +25,15 @@ import Events from "../Pages/Events/Events";
 import ClubDetails from "../Pages/Clubs/clubDetails";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentCancel from "../Pages/Payment/PaymentCancel";
+import EventDetails from "../Pages/Events/EventDetails";
+import EventPaymentSuccess from "../Pages/Payment/EventPaymentSuccess";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         Component: MainLayout,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
@@ -48,15 +52,25 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'club-details/:id',
-                Component: ClubDetails
+                element: <PrivateRoute><ClubDetails /></PrivateRoute>
             },
             {
                 path: 'events',
                 Component: Events
             },
             {
+                path: 'event-details/:id',
+                element: <PrivateRoute>
+                    <EventDetails />
+                </PrivateRoute>
+            },
+            {
                 path: 'payment-success',
                 Component: PaymentSuccess
+            },
+            {
+                path: 'event-payment-success',
+                Component: EventPaymentSuccess
             },
             {
                 path: 'payment-cancel',

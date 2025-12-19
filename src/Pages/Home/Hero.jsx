@@ -55,10 +55,10 @@ const Hero = () => {
                     </a>
 
                     <a
-                        href="/create-club"
+                        href="/events"
                         className="px-6 py-3 border border-[#4F80FF] text-[#4F80FF] rounded-lg font-semibold hover:bg-[#F3F6FF] transition"
                     >
-                        Create a Club
+                        Join an Event
                     </a>
                 </motion.div>
             </div>

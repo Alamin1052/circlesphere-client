@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../../Component/Loading";
 
 const ManagerClubs = () => {
     const [openCreate, setOpenCreate] = useState(false);
@@ -120,7 +121,7 @@ const ManagerClubs = () => {
         }
     };
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loading />;
 
     return (
         <div className="p-6">
@@ -137,7 +138,7 @@ const ManagerClubs = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {club.map((c) => (
-                    <div key={c._id} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+                    <div key={c._id} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm flex flex-col justify-between h-full hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1">
                         <img
                             src={c.bannerImage}
                             alt="banner"

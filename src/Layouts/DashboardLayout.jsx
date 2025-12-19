@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { FaRegCreditCard, FaUsers, FaUsersCog } from 'react-icons/fa';
-
+import logoimg from '../assets/logo (2).png'
 import Logo from '../Component/Logo';
 import useAuth from '../Hooks/useAuth';
 import { MdAppRegistration, MdDashboard, MdEvent, MdEventRepeat, MdGroups, MdOutlineManageAccounts, MdPayment } from 'react-icons/md';
@@ -55,7 +55,7 @@ const DashboardLayout = () => {
 
                 </nav>
                 {/* Page content here */}
-                <div className='bg-[linear-gradient(to_bottom_right,#e2edff,#f9fbff)] min-h-full'>
+                <div className='bg-[linear-gradient(to_bottom_right,#fff1f2,#ffe4e6,#fff7ed)] min-h-screen'>
                     <Outlet></Outlet>
                 </div>
 
@@ -67,6 +67,9 @@ const DashboardLayout = () => {
                     {/* Sidebar content here */}
                     <ul className="menu w-ful grow">
                         {/* List item */}
+                        <li>
+                            <Link to="/"><img src={logoimg} alt="" /></Link>
+                        </li>
                         {
                             role === 'member' && <>
 

@@ -103,7 +103,7 @@ const ManagerEvents = () => {
             {/* Events Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {events.map((ev) => (
-                    <div key={ev._id} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+                    <div key={ev._id} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm flex flex-col justify-between h-full hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1">
                         <h2 className="text-xl font-semibold text-gray-800 mt-2">{ev.title}</h2>
                         <p className="text-sm text-gray-600 mt-1">
                             {ev.description?.length > 50

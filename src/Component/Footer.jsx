@@ -5,16 +5,16 @@ import Logo from "./Logo";
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-900 rounded-t-2xl text-gray-200 pt-15 ">
+        <footer className="bg-orange-400 rounded-t-2xl text-gray-200 pt-15 ">
             <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
 
                 {/* About / Contact Info */}
                 <div className="text-center md:text-left mb-6 md:mb-0">
                     <div className="flex justify-center md:flex md:justify-start"><Logo /></div>
-                    <p className="text-gray-400 max-w-sm">
+                    <p className="text-white max-w-sm">
                         CircleSphere is your hub to explore clubs, join events, connect with like-minded people, and grow your skills. Stay connected and never miss out!
                     </p>
-                    <p className="mt-2 text-gray-400">Email: contact@circlesphere.com</p>
+                    <p className="mt-2 text-white">Email: contact@circlesphere.com</p>
                 </div>
 
                 {/* Social Links */}
@@ -34,7 +34,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="mt-8 pb-5 text-center text-gray-500 text-sm">
+            <div className="mt-8 pb-5 text-center text-white text-sm">
                 &copy; {new Date().getFullYear()} CircleSphere. All rights reserved.
             </div>
         </footer>

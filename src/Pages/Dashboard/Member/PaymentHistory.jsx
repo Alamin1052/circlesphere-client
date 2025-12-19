@@ -1,102 +1,58 @@
-import React from "react";
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Loading from '../../../Component/Loading';
 
 const PaymentHistory = () => {
-    // static dummy payments
-    const payments = [
-        {
-            id: 1,
-            amount: 500,
-            type: "membership",
-            club: "Tech Club",
-            date: "2025-01-12",
-            status: "successful",
-        },
-        {
-            id: 2,
-            amount: 300,
-            type: "event",
-            club: "Photography Club",
-            date: "2025-02-05",
-            status: "successful",
-        },
-        {
-            id: 3,
-            amount: 200,
-            type: "membership",
-            club: "Cultural Club",
-            date: "2024-12-22",
-            status: "failed",
-        },
-        {
-            id: 4,
-            amount: 450,
-            type: "membership",
-            club: "Robotics Society",
-            date: "2025-03-18",
-            status: "pending",
-        },
-    ];
+    const axiosSecure = useAxiosSecure();
 
-    const statusBadge = (status) => {
-        if (status === "successful")
-            return "bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium";
+    const { data: payments = [], isLoading } = useQuery({
+        queryKey: ['my-payments'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/my-payments');
+            return res.data;
+        }
+    });
 
-        if (status === "pending")
-            return "bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-medium";
+    if (isLoading) return <Loading />;
 
-        return "bg-rose-100 text-rose-800 px-3 py-1 rounded-full text-sm font-medium";
-    };
+    if (payments.length === 0) {
+        return (
+            <p className="text-center mt-10 text-gray-500">
+                You have no past payments.
+            </p>
+        );
+    }
 
     return (
-        <div className="space-y-6 p-6">
-            <div>
-                <h1 className="text-2xl font-bold text-gray-800">Payment History</h1>
-                <p className="text-gray-600">All your past payments for memberships & events.</p>
-            </div>
+        <div className="max-w-6xl mx-auto p-4 sm:p-6">
+            <h2 className="text-2xl font-bold mb-4 sm:mb-6">Payment History</h2>
 
-            <div className="overflow-x-auto rounded-xl shadow">
-                <table className="min-w-full bg-white rounded-xl">
-                    <thead>
-                        <tr className="bg-gray-200 text-left text-gray-800 text-sm">
-                            <th className="py-3 px-4">Amount</th>
-                            <th className="py-3 px-4">Type</th>
-                            <th className="py-3 px-4">Club</th>
-                            <th className="py-3 px-4">Date</th>
-                            <th className="py-3 px-4">Status</th>
+            <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse border border-gray-200">
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="p-2 sm:p-3 border text-left">Amount</th>
+                            <th className="p-2 sm:p-3 border text-left">Type</th>
+                            <th className="p-2 sm:p-3 border text-left">Club/Event</th>
+                            <th className="p-2 sm:p-3 border text-left">Date</th>
+                            <th className="p-2 sm:p-3 border text-left">Status</th>
                         </tr>
                     </thead>
-
                     <tbody>
-                        {payments.map((pay) => (
-                            <tr
-                                key={pay.id}
-                                className="border-b border-gray-300 last:border-0 hover:bg-gray-100 transition"
-                            >
-                                <td className="py-5 px-4 font-medium text-gray-800">
-                                    ৳{pay.amount}
-                                </td>
-                                <td className="py-5 px-4 capitalize text-gray-700">
-                                    {pay.type}
-                                </td>
-                                <td className="py-5 px-4 text-gray-700">
-                                    {pay.club}
-                                </td>
-                                <td className="py-5 px-4 text-gray-700">
-                                    {new Date(pay.date).toLocaleDateString()}
-                                </td>
-                                <td className="py-5 px-4">
-                                    <span className={statusBadge(pay.status)}>
-                                        {pay.status}
-                                    </span>
+                        {payments.map(payment => (
+                            <tr key={payment._id} className="hover:bg-gray-50">
+                                <td className="p-2 sm:p-3 border">{payment.amount} BDT</td>
+                                <td className="p-2 sm:p-3 border capitalize">{payment.type}</td>
+                                <td className="p-2 sm:p-3 border">{payment.name}</td>
+                                <td className="p-2 sm:p-3 border">{new Date(payment.date).toLocaleString()}</td>
+                                <td className={`p-2 sm:p-3 border font-medium ${payment.status === 'completed' ? 'text-green-600' : 'text-red-600'}`}>
+                                    {payment.status}
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-
-            {/* Empty state */}
-            {/* <p className="text-center text-gray-500 mt-6">No payments found.</p> */}
         </div>
     );
 };

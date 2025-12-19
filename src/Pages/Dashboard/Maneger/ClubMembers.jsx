@@ -1,81 +1,71 @@
-import React from "react";
+import React from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Loading from '../../../Component/Loading';
 
 const ClubMembers = () => {
-    const events = [
+    const axiosSecure = useAxiosSecure();
+    const queryClient = useQueryClient();
 
-        {
-            name: "Rakib Hasan",
-            email: "rakib@example.com",
-            status: "Active",
-            statusColor: "bg-green-100 text-green-700",
-            date: "2024-02-19",
+    const { data: members = [], isLoading } = useQuery({
+        queryKey: ['manager-members'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/manager/members');
+            return res.data;
         },
-        {
-            name: "Mahin Islam",
-            email: "mahin@example.com",
-            status: "Pending",
-            statusColor: "bg-yellow-100 text-yellow-700",
-            date: "2024-02-10",
-        },
-        {
-            name: "Jannat Ara",
-            email: "jannat@example.com",
-            status: "Active",
-            statusColor: "bg-green-100 text-green-700",
-            date: "2024-01-28",
-        },
+    });
 
-    ];
+    const expireMutation = useMutation({
+        mutationFn: async (membershipId) => {
+            const res = await axiosSecure.patch(`/membership/${membershipId}/status`, { status: 'expired' });
+            return res.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(['manager-members']);
+        }
+    });
 
-    const statusBadge = (status) => {
-        if (status === "Active")
-            return "bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium";
-        return "bg-rose-100 text-rose-800 px-3 py-1 rounded-full text-sm font-medium";
-    };
+    if (isLoading) return <Loading />;
 
     return (
-        <div className="space-y-6 p-6">
-            <div>
-                <h1 className="text-2xl font-bold text-gray-800">Club Members</h1>
-            </div>
+        <div className="p-6 max-w-6xl mx-auto">
+            <h2 className="text-2xl font-bold mb-4">Club Members</h2>
 
-            <div className="overflow-x-auto rounded-xl shadow">
-                <table className="min-w-full bg-white rounded-xl">
+            {members.length === 0 ? (
+                <p className="text-gray-500">No members found.</p>
+            ) : (
+                <table className="w-full border-collapse">
                     <thead>
-                        <tr className="bg-gray-200 text-left text-gray-800 text-sm">
-                            <th className="py-3 px-4">Name</th>
-                            <th className="py-3 px-4">Email</th>
-                            <th className="py-3 px-4">Join Date</th>
-                            <th className="py-3 px-4">Status</th>
-                            <th className="py-3 px-4">Action</th>
+                        <tr className="bg-gray-100">
+                            <th className="p-3 border">Club Name</th>
+                            <th className="p-3 border">Email</th>
+                            <th className="p-3 border">Status</th>
+                            <th className="p-3 border">Joined At</th>
+                            <th className="p-3 border">Actions</th>
                         </tr>
                     </thead>
-
                     <tbody>
-                        {events.map((ev) => (
-                            <tr
-                                key={ev.id}
-                                className="border-b border-gray-300 last:border-0 hover:bg-gray-100 transition"
-                            >
-                                <td className="py-5 px-4 font-medium text-gray-800">{ev.name}</td>
-                                <td className="py-5 px-4 text-gray-800">{ev.email}</td>
-                                <td className="py-5 px-4 text-gray-800">
-                                    {new Date(ev.date).toLocaleDateString()}
+                        {members.map(member => (
+                            <tr key={member._id} className="hover:bg-gray-50 bg-white rounded-xl">
+                                <td className="p-3 border">{member.clubName || 'N/A'}</td>
+                                <td className="p-3 border">{member.userEmail}</td>
+                                <td className="p-3 border capitalize">{member.status}</td>
+                                <td className="p-3 border">{new Date(member.joinedAt).toLocaleDateString()}</td>
+                                <td className="p-3 border">
+                                    {member.status !== 'expired' && (
+                                        <button
+                                            onClick={() => expireMutation.mutate(member._id)}
+                                            className="btn bg-red-500 text-white px-3 py-1 rounded"
+                                        >
+                                            Expire
+                                        </button>
+                                    )}
                                 </td>
-                                <td className="py-5 px-4">
-                                    <span className={statusBadge(ev.status)}>
-                                        {ev.status === "Active" ? "Active" : "Expired"}
-                                    </span>
-                                </td>
-                                <td className="py-5 px-4 font-medium text-gray-800"><button className="btn btn-sm bg-red-500 text-white">Set Expired</button></td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-            </div>
-
-            {/* empty state example */}
-            {/* <p className="text-center text-gray-500 mt-6">You have not registered for any events.</p> */}
+            )}
         </div>
     );
 };

@@ -1,124 +1,72 @@
-// MyClubs.jsx
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Loading from '../../../Component/Loading';
 
 const MyClubs = () => {
-    // static dummy data
-    const clubs = [
-        {
-            id: "c1",
-            name: "Tech Club",
-            location: "Dhaka University",
-            expiry: "2026-02-10",
-            status: "active",
-        },
-        {
-            id: "c2",
-            name: "Photography Club",
-            location: "Rajshahi Campus",
-            expiry: "2025-12-01",
-            status: "expiring",
-        },
-        {
-            id: "c3",
-            name: "Cultural Club",
-            location: "City Hall",
-            expiry: "2024-11-20",
-            status: "expired",
-        },
-        {
-            id: "c4",
-            name: "Robotics Society",
-            location: "Engineering Block",
-            expiry: "2026-05-15",
-            status: "active",
-        },
-    ];
+    const axiosSecure = useAxiosSecure();
 
-    // helper to format date and compute days left
-    const formatDate = (iso) => {
-        const d = new Date(iso);
-        return d.toLocaleDateString();
-    };
+    const { data: clubs = [], isLoading } = useQuery({
+        queryKey: ['my-clubs'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/my-clubs');
+            return res.data;
+        }
+    });
 
-    const daysLeft = (iso) => {
-        const now = new Date();
-        const d = new Date(iso);
-        const diff = Math.ceil((d - now) / (1000 * 60 * 60 * 24));
-        if (diff > 0) return `${diff} day${diff > 1 ? "s" : ""}`;
-        if (diff === 0) return "today";
-        return `${Math.abs(diff)} day${Math.abs(diff) > 1 ? "s" : ""} ago`;
-    };
+    if (isLoading) return <Loading />;
 
-    const statusBadge = (status) => {
-        if (status === "active")
-            return "text-emerald-800 bg-emerald-100 px-2 py-1 rounded-full text-sm font-medium";
-        if (status === "expiring")
-            return "text-amber-800 bg-amber-100 px-2 py-1 rounded-full text-sm font-medium";
-        return "text-rose-800 bg-rose-100 px-2 py-1 rounded-full text-sm font-medium";
-    };
+    if (clubs.length === 0) {
+        return (
+            <p className="text-center text-2xl pt-10 text-gray-500">
+                You have not joined any club yet.
+            </p>
+        );
+    }
 
     return (
-        <div className="space-y-6 p-6">
-            <div>
-                <h1 className="text-2xl font-bold text-gray-800">My Clubs</h1>
-                <p className="text-gray-600">Clubs where you have an active membership.</p>
-            </div>
+        <div className="max-w-6xl mx-auto p-6">
+            <h2 className="text-2xl font-bold mb-6">My Clubs</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {clubs.map((club) => (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {clubs.map(club => (
                     <div
-                        key={club.id}
-                        className="bg-white rounded-2xl p-5 shadow hover:shadow-lg transition flex flex-col justify-between"
+                        key={club._id}
+                        className="bg-white rounded-xl shadow p-4"
                     >
-                        <div>
-                            <div className="flex items-start justify-between">
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-800">{club.name}</h3>
-                                    <p className="text-sm text-gray-500 mt-1">{club.location}</p>
-                                </div>
-                                <span className={statusBadge(club.status)}>
-                                    {club.status === "active" ? "Active" : club.status === "expiring" ? "Expiring" : "Expired"}
-                                </span>
-                            </div>
+                        <img
+                            src={club.bannerImage}
+                            alt={club.clubName}
+                            className="h-40 w-full object-cover rounded-lg"
+                        />
 
-                            <div className="mt-4 text-sm text-gray-600">
-                                <p>
-                                    <span className="font-medium text-gray-700">Expiry:</span>{" "}
-                                    {formatDate(club.expiry)}
-                                </p>
-                                <p className="mt-1">
-                                    <span className="font-medium text-gray-700">Status:</span>{" "}
-                                    {club.status === "active"
-                                        ? `Valid — ${daysLeft(club.expiry)} left`
-                                        : club.status === "expiring"
-                                            ? `Expiring soon — ${daysLeft(club.expiry)} left`
-                                            : `Expired ${daysLeft(club.expiry)}`}
-                                </p>
-                            </div>
-                        </div>
+                        <h3 className="text-xl font-semibold mt-3">
+                            {club.clubName}
+                        </h3>
 
-                        <div className="mt-5 flex items-center justify-between">
-                            <Link
-                                to={`/clubs/${club.id}`}
-                                className="text-sm font-medium text-indigo-600 hover:underline"
-                            >
-                                View details
-                            </Link>
+                        <p className="text-gray-600">
+                            📍 {club.location}
+                        </p>
 
-                            <button
-                                className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-sm text-gray-700"
-                                aria-label="renew membership"
-                            >
-                                Renew
-                            </button>
-                        </div>
+                        <p className="text-green-600 font-medium mt-1">
+                            Status: {club.status}
+                        </p>
+
+                        {club.expiresAt && (
+                            <p className="text-sm text-gray-500">
+                                Expires on: {new Date(club.expiresAt).toDateString()}
+                            </p>
+                        )}
+
+                        <Link
+                            to={`/club-details/${club._id}`}
+                            className="inline-block mt-3 text-blue-500 underline"
+                        >
+                            View Details →
+                        </Link>
                     </div>
                 ))}
             </div>
-
-            {/* empty state example */}
-            {/* <div className="text-center text-gray-500">You have not joined any clubs yet.</div> */}
         </div>
     );
 };
