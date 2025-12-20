@@ -15,7 +15,7 @@ const EventDetails = () => {
     const { data: event, isLoading } = useQuery({
         queryKey: ['event', id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/events/${id}`);
+            const res = await axios.get(`https://circlesphere-server.vercel.app/events/${id}`);
             return res.data;
         },
     });

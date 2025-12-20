@@ -15,7 +15,8 @@ The purpose of CircleSphere is to create a centralized digital system for:
 ---
 
 ## 🚀 Live URL
-  
+
+https://circlesphere.netlify.app/
 
 ## User Credentials
 

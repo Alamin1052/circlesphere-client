@@ -14,7 +14,7 @@ const ClubDetails = () => {
     const { data: club, isLoading } = useQuery({
         queryKey: ['club', id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/clubs/${id}`);
+            const res = await axios.get(`https://circlesphere-server.vercel.app/clubs/${id}`);
             return res.data;
         },
     });

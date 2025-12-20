@@ -12,7 +12,7 @@ const Clubs = () => {
         queryKey: ['clubs', search, sort],
         queryFn: async () => {
             const res = await axios.get(
-                `http://localhost:3000/clubs?search=${search}&sort=${sort}`
+                `https://circlesphere-server.vercel.app/clubs?search=${search}&sort=${sort}`
             );
             return res.data;
         }

@@ -10,7 +10,7 @@ const Clubs = () => {
     const { refetch, isLoading, data } = useQuery({
         queryKey: ['events', search],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/events?search=${search}`);
+            const res = await axios.get(`https://circlesphere-server.vercel.app/events?search=${search}`);
             return res.data;
         },
         enabled: false, // auto fetch off

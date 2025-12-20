@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
     const { user, logOut } = useAuth()
-    console.log(user)
+    // console.log(user)
     const handleLogOut = () => {
         logOut()
             .then()
@@ -44,7 +44,7 @@ const Navbar = () => {
                             {Links}
                         </ul>
                     </div>
-                    <Logo />
+                    <Link to='/'> <Logo /></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">

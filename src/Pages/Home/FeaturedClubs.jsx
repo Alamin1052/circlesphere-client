@@ -8,7 +8,7 @@ const FeaturedClubs = () => {
     const { data: clubs = [], isLoading } = useQuery({
         queryKey: ['featured-clubs'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:3000/featured-clubs');
+            const res = await axios.get('https://circlesphere-server.vercel.app/featured-clubs');
             return res.data;
         }
     });
