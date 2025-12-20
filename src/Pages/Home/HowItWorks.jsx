@@ -41,7 +41,7 @@ const HowItWorks = () => {
     };
 
     return (
-        <section className="py-16">
+        <section className="py-8">
             <div className="max-w-7xl mx-auto px-4 text-center">
                 <h2 className="text-3xl font-bold mb-12">How CircleSphere Works</h2>
 

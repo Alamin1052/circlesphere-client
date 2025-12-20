@@ -16,8 +16,8 @@ const FeaturedClubs = () => {
     if (isLoading) return <Loading />;
 
     return (
-        <section className="max-w-7xl mx-auto px-6 py-12">
-            <h2 className="text-2xl font-bold mb-6">
+        <section className="max-w-7xl mx-auto px-6 py-8">
+            <h2 className="text-3xl text-gray-800 text-center font-bold mb-6">
                 Featured Clubs
             </h2>
 

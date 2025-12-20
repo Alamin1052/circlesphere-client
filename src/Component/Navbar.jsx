@@ -74,8 +74,8 @@ const Navbar = () => {
                             <li onClick={handleLogOut}><a>Logout</a></li>
                         </ul>
                     </div> : <div className="navbar-end">
-                        <Link to="/register" className="btn btn-outline rounded-lg mx-2 font-bold">Register</Link>
-                        <Link to="/login" className="px-6 py-2 rounded-lg bg-[#4F80FF] text-white font-bold">Login</Link>
+                        <Link to="/register" className="btn btn-outline max-sm:hidden rounded-lg mx-2 font-bold">Register</Link>
+                        <Link to="/login" className="px-6 py-2 max-sm:btn-sm rounded-lg bg-[#4F80FF] text-white font-bold">Login</Link>
                     </div>}
                 </div>
 

@@ -4,7 +4,7 @@ import { FaHeart, FaStar } from "react-icons/fa";
 
 const Hero = () => {
     return (
-        <section className="w-full  relative overflow-hidden py-20">
+        <section className="w-full  relative overflow-hidden py-10">
 
 
             <div className="max-w-4xl mx-auto text-center px-6">
