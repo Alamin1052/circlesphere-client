@@ -21,12 +21,12 @@ https://circlesphere.netlify.app/
 ## User Credentials
 
 Admin:
-admin@circlesphere.com
-Admin123
+Email: admin@circlesphere.com
+Pass: Admin123
 
 Manager:
-elonmask@spacex.com
-Elonmask
+Email: elonmask@spacex.com
+Pass: Elonmask
 
 ---
 
