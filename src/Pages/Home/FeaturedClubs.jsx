@@ -16,14 +16,14 @@ const FeaturedClubs = () => {
     if (isLoading) return <Loading />;
 
     return (
-        <section className="max-w-7xl mx-auto px-6 py-8">
+        <section className="max-w-7xl mx-auto max-sm:px-6 px-4 py-8">
             <h2 className="text-3xl text-gray-800 text-center font-bold mb-6">
                 Featured Clubs
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {clubs.map((c) => (
-                    <div key={c._id} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm 
+                    <div key={c._id} className=" 
                                  flex flex-col justify-between h-full transform transition duration-300 hover:scale-105 hover:shadow-lg">
                         <img
                             src={c.bannerImage}

@@ -28,6 +28,8 @@ import PaymentCancel from "../Pages/Payment/PaymentCancel";
 import EventDetails from "../Pages/Events/EventDetails";
 import EventPaymentSuccess from "../Pages/Payment/EventPaymentSuccess";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import About from "../Pages/ExtraPage/About";
+import Privacy from "../Pages/ExtraPage/Privacy";
 
 export const router = createBrowserRouter([
     {
@@ -63,6 +65,14 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute>
                     <EventDetails />
                 </PrivateRoute>
+            },
+            {
+                path: 'about',
+                Component: About
+            },
+            {
+                path: 'privacy',
+                Component: Privacy
             },
             {
                 path: 'payment-success',

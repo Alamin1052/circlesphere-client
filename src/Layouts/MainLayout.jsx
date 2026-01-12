@@ -7,7 +7,7 @@ const MainLayout = () => {
     return (
         <div>
             <Navbar />
-            <section className='min-h-screen bg-[linear-gradient(to_bottom_right,#fff1f2,#ffe4e6,#fff7ed)]'>
+            <section className='min-h-screen bg-slate-50'>
                 <Outlet />
             </section>
             <Footer />

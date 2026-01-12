@@ -16,14 +16,20 @@ const Navbar = () => {
     }
     const Links = <>
         <li><NavLink to="/"
-            className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
+            className={({ isActive }) => isActive ? "bg-blue-500" : "text-blue-600"}
         >Home</NavLink></li>
         <li><NavLink to="/clubs"
-            className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
+            className={({ isActive }) => isActive ? "bg-blue-500" : "text-blue-600"}
         >Clubs</NavLink></li>
         <li><NavLink to="/events"
-            className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
+            className={({ isActive }) => isActive ? "bg-blue-500" : "text-blue-600"}
         >Events</NavLink></li>
+        <li><NavLink to="/about"
+            className={({ isActive }) => isActive ? "bg-blue-500" : "text-blue-600"}
+        >About</NavLink></li>
+        <li><NavLink to="/privacy"
+            className={({ isActive }) => isActive ? "bg-blue-500" : "text-blue-600"}
+        >Privacy</NavLink></li>
         {
             user && <li><NavLink to="/dashboard" className={({ isActive }) => isActive ? "bg-blue-500" : "text-white"}
             >Dashboard</NavLink></li >
@@ -31,9 +37,9 @@ const Navbar = () => {
     </>
 
     return (
-        <div className="sticky top-0 z-10 bg-orange-400/60 backdrop-blur-sm">
+        <div className="sticky top-0 z-10 bg-base-300">
             <div className="navbar max-w-7xl mx-auto">
-                <div className="navbar-start  text-white">
+                <div className="navbar-start  text-black">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
@@ -74,7 +80,7 @@ const Navbar = () => {
                             <li onClick={handleLogOut}><a>Logout</a></li>
                         </ul>
                     </div> : <div className="navbar-end">
-                        <Link to="/register" className="btn btn-outline max-sm:hidden rounded-lg mx-2 font-bold">Register</Link>
+                        <Link to="/register" className="btn btn-outline max-sm:hidden text-blue-600 border-blue-500 rounded-lg mx-2 font-bold">Register</Link>
                         <Link to="/login" className="px-6 py-2 max-sm:btn-sm rounded-lg bg-[#4F80FF] text-white font-bold">Login</Link>
                     </div>}
                 </div>

@@ -59,11 +59,11 @@ const Clubs = () => {
                     No clubs found.
                 </p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {clubs.map((club) => (
                         <div
                             key={club._id}
-                            className="bg-white border border-gray-300 rounded-xl p-5 shadow-sm
+                            className="
                             flex flex-col justify-between h-full
                             transition hover:shadow-lg hover:-translate-y-1"
                         >

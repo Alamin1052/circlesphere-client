@@ -5,13 +5,13 @@ import Logo from "./Logo";
 
 const Footer = () => {
     return (
-        <footer className="bg-orange-400 rounded-t-2xl text-gray-200 pt-15 ">
+        <footer className="bg-base-200 shadow-2xl border-2 border-gray-300 rounded-t-2xl text-gray-300 pt-15">
             <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
 
                 {/* About / Contact Info */}
                 <div className="text-center md:text-left mb-6 md:mb-0">
                     <div className="flex justify-center md:flex md:justify-start"><Logo /></div>
-                    <p className="text-white max-w-sm">
+                    <p className="text-slate-800 max-w-sm">
                         CircleSphere is your hub to explore clubs, join events, connect with like-minded people, and grow your skills. Stay connected and never miss out!
                     </p>
                     <p className="mt-2 text-white">Email: contact@circlesphere.com</p>
@@ -20,16 +20,16 @@ const Footer = () => {
                 {/* Social Links */}
                 <div className="flex space-x-6 text-2xl">
                     <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-                        <FaGithub />
+                        <FaGithub color='red' />
                     </a>
-                    <a href="https://www.linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition">
-                        <FaLinkedin />
+                    <a href="https://www.linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className=" transition">
+                        <FaLinkedin color='blue' />
                     </a>
-                    <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
-                        <FaSquareXTwitter />
+                    <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className=" transition">
+                        <FaSquareXTwitter color='black' />
                     </a>
                     <a href="mailto:contact@circlesphere.com" className="hover:text-red-500 transition">
-                        <FaEnvelope />
+                        <FaEnvelope color='purple' />
                     </a>
                 </div>
             </div>
